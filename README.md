@@ -54,7 +54,7 @@ The program will:
 3. Send each image to the VLM through LM Studio with an OCR prompt.
 4. Clean the model's raw output using regex.
 5. Compute the CER (Character Error Rate) for each prediction.
-6. Save all results to a CSV file (`hasil_ocr_plat.csv`) with columns: `image, ground_truth, prediction, CER_score`.
+6. Save all results to a CSV file (`result_ocr_plat.csv`) with columns: `image, ground_truth, prediction, CER_score`.
 
 ## CER Formula
 
@@ -68,7 +68,7 @@ CER = (S + D + I) / N
 
 ## Output
 
-The `hasil_ocr_plat.csv` file contains the prediction results and CER score for each image, along with the overall average CER printed to the terminal once the program finishes.
+The `result_ocr_plat.csv` file contains the prediction results and CER score for each image, along with the overall average CER printed to the terminal once the program finishes.
 
 ## Repository Structure
 
@@ -77,5 +77,6 @@ vlm-license-plate-ocr/
 ├── main.py              # main program
 ├── requirements.txt     # Python dependency list
 ├── README.md            # this documentation
+├── result_ocr_plat.csv  # result of ocr
 └── .gitignore
 ```
