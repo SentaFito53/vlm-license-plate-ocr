@@ -1,83 +1,83 @@
-# OCR Plat Nomor Kendaraan menggunakan Visual Language Model (VLM)
+# Vehicle License Plate OCR using Visual Language Model (VLM)
 
-Program ini melakukan Optical Character Recognition (OCR) pada plat nomor kendaraan Indonesia menggunakan Visual Language Model (VLM) yang dijalankan melalui LM Studio, diintegrasikan dengan Python. Hasil prediksi dievaluasi menggunakan metrik Character Error Rate (CER).
+This program performs Optical Character Recognition (OCR) on Indonesian vehicle license plates using a Visual Language Model (VLM) served through LM Studio and integrated with Python. Predictions are evaluated using the Character Error Rate (CER) metric.
 
 ## Dataset
 
-Dataset yang digunakan: [Indonesian License Plate Recognition Dataset](https://www.kaggle.com/datasets/juanthomaswijaya/indonesian-license-plate-dataset) (folder `test`).
+Dataset used: [Indonesian License Plate Recognition Dataset](https://www.kaggle.com/datasets/juanthomaswijaya/indonesian-license-plate-dataset) (`test` folder).
 
-Struktur folder dataset yang diharapkan:
+Expected dataset folder structure:
 ```
 Indonesian License Plate Recognition Dataset/
-├── images/test/       # gambar plat nomor
-├── labels/test/       # label ground truth format YOLO (per karakter)
-└── classes.names      # daftar karakter (mapping class_id -> karakter)
+├── images/test/       # license plate images
+├── labels/test/       # YOLO-format ground truth labels (per character)
+└── classes.names      # character list (class_id -> character mapping)
 ```
 
-## Requirement
+## Requirements
 
 - Python 3.10+
-- [LM Studio](https://lmstudio.ai/) (untuk menjalankan model VLM secara lokal)
-- Model VLM multimodal, contoh: `llava-llama-3-8b-v1_1`
+- [LM Studio](https://lmstudio.ai/) (to run the VLM locally)
+- A multimodal VLM model, e.g. `llava-llama-3-8b-v1_1`
 
-## Instalasi
+## Installation
 
-1. Clone repository ini:
+1. Clone this repository:
    ```
-   git clone https://github.com/SentaFito53/vlm-license-plate-ocr-aas.git
-   cd vlm-license-plate-ocr-aas
+   git clone https://github.com/SentaFito53/vlm-license-plate-ocr.git
+   cd vlm-license-plate-ocr
    ```
 
-2. Install dependency Python:
+2. Install Python dependencies:
    ```
    pip install -r requirements.txt
    ```
 
-3. Download dan letakkan dataset di folder project (lihat struktur di atas). Dataset **tidak disertakan** di repo ini karena ukurannya besar — download manual dari link Kaggle di atas.
+3. Download the dataset and place it inside the project folder (see structure above). The dataset is **not included** in this repository due to its size — download it manually from the Kaggle link above.
 
-## Menjalankan LM Studio
+## Running LM Studio
 
-1. Buka aplikasi LM Studio.
-2. Download model VLM (contoh: `llava-llama-3-8b-v1_1`) lewat menu **Discover/Search**.
-3. Buka mode **Developer** → pilih model yang sudah didownload → klik **Start Server**.
-4. Pastikan server berjalan di `http://localhost:1234` (default) dan biarkan tetap terbuka selama program dijalankan.
+1. Open the LM Studio application.
+2. Download a VLM model (e.g. `llava-llama-3-8b-v1_1`) via the **Discover/Search** menu.
+3. Switch to **Developer** mode → select the downloaded model → click **Start Server**.
+4. Make sure the server is running at `http://localhost:1234` (default) and keep it open while the program runs.
 
-## Menjalankan Program
+## Running the Program
 
-Sesuaikan path dataset di bagian konfigurasi pada `main.py` jika diperlukan, lalu jalankan:
+Adjust the dataset path in the configuration section of `main.py` if needed, then run:
 
 ```
 python main.py
 ```
 
-Program akan:
-1. Membaca setiap gambar plat nomor di folder `images/test`.
-2. Merekonstruksi ground truth dari label YOLO per karakter di folder `labels/test`.
-3. Mengirim gambar ke model VLM melalui LM Studio dengan prompt OCR.
-4. Membersihkan hasil prediksi model menggunakan regex.
-5. Menghitung CER (Character Error Rate) untuk setiap prediksi.
-6. Menyimpan seluruh hasil ke file CSV (`hasil_ocr_plat.csv`) dengan kolom: `image, ground_truth, prediction, CER_score`.
+The program will:
+1. Read every license plate image in the `images/test` folder.
+2. Reconstruct the ground truth from the per-character YOLO labels in `labels/test`.
+3. Send each image to the VLM through LM Studio with an OCR prompt.
+4. Clean the model's raw output using regex.
+5. Compute the CER (Character Error Rate) for each prediction.
+6. Save all results to a CSV file (`hasil_ocr_plat.csv`) with columns: `image, ground_truth, prediction, CER_score`.
 
-## Formula CER
+## CER Formula
 
 ```
 CER = (S + D + I) / N
 ```
-- S = jumlah karakter salah substitusi
-- D = jumlah karakter yang dihapus
-- I = jumlah karakter yang disisipkan
-- N = jumlah karakter pada ground truth
+- S = number of substituted characters
+- D = number of deleted characters
+- I = number of inserted characters
+- N = number of characters in the ground truth
 
 ## Output
 
-File `hasil_ocr_plat.csv` berisi hasil prediksi dan skor CER untuk setiap gambar, beserta rata-rata CER keseluruhan yang ditampilkan di terminal setelah program selesai.
+The `hasil_ocr_plat.csv` file contains the prediction results and CER score for each image, along with the overall average CER printed to the terminal once the program finishes.
 
-## Struktur Repository
+## Repository Structure
 
 ```
-vlm-license-plate-ocr-aas/
-├── main.py              # program utama
-├── requirements.txt     # daftar dependency Python
-├── README.md            # dokumentasi ini
+vlm-license-plate-ocr/
+├── main.py              # main program
+├── requirements.txt     # Python dependency list
+├── README.md            # this documentation
 └── .gitignore
 ```
