@@ -33,8 +33,6 @@ Indonesian License Plate Recognition Dataset/
    pip install -r requirements.txt
    ```
 
-3. Download the dataset and place it inside the project folder (see structure above). The dataset is **not included** in this repository due to its size — download it manually from the Kaggle link above.
-
 ## Running LM Studio
 
 1. Open the LM Studio application.
