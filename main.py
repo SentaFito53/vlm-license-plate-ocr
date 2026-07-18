@@ -23,7 +23,7 @@ def get_unique_filename(base_filename):
             return new_filename
         counter += 1
 
-OUTPUT_CSV = get_unique_filename("hasil_ocr_plat.csv")
+OUTPUT_CSV = get_unique_filename("result_ocr_plat.csv")
 
 # LOAD CLASS NAMES
 with open(CLASSES_FILE, "r", encoding="utf-8") as f:
