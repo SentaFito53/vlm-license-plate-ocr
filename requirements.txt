@@ -1,0 +1,4 @@
+lmstudio
+jiwer
+re
+csv
